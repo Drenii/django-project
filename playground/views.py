@@ -16,7 +16,9 @@ def say_hello(request):
     # F referencing fields, example find all data from db where inventory is equat to price
     # query_set = Product.objects.filter(inventory=F('price'))
     #filter by order
-    query_set = Product.objects.order_by('price', '-title').reverse()
+    # query_set = Product.objects.order_by('price', '-title').reverse()
+    #Limiting results
+    query_set = Product.objects.all()[:5]
 
     # print(query_set[0:5]) show first 5 rows
   
