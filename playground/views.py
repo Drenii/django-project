@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from store.models import Product
+from store.models import Product, OrderItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q, F
 
@@ -18,7 +18,11 @@ def say_hello(request):
     #filter by order
     # query_set = Product.objects.order_by('price', '-title').reverse()
     #Limiting results
-    query_set = Product.objects.all()[:5]
+    # query_set = Product.objects.all()[:5]
+    # SELECTING FIELDS TO QUERY
+    # query_set=Product.objects.values_list('id', 'title', 'collection__title')
+    # JOIN TWO TABLES
+    query_set = Product.objects.filter(id__in=OrderItem.objects.values('product_id').distinct()).order_by('title')
 
     # print(query_set[0:5]) show first 5 rows
   
